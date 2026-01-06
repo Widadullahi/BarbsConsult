@@ -11,6 +11,7 @@ import {
   FaBuilding,
   FaKey,
 } from 'react-icons/fa'
+import  logo  from '../images/logo.png'
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -110,7 +111,7 @@ const Header = () => {
           <div className="flex justify-between items-center">
             {/* LOGO */}
             <Link to="/" className="flex items-center gap-3">
-              <img src="logo.png" width={50} alt="Logo" />
+              <img src={logo} width={50} alt="Logo" />
               <span className="font-bold text-xl text-blue-600">
                 Barbs<span className="text-gray-900">Consult</span>
               </span>
