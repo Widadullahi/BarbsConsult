@@ -1,220 +1,304 @@
-import { FaBuilding, FaUsers, FaCalendarAlt, FaMoneyBillWave, FaArrowUp, FaArrowDown } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+// src/admin/pages/Dashboard.jsx
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { 
+  FaChartLine, 
+  FaHome, 
+  FaNewspaper, 
+  FaUsers, 
+  FaEnvelope, 
+  FaCalendarAlt,
+  FaDollarSign,
+  FaEye,
+  FaComment,
+  FaArrowRight
+} from 'react-icons/fa';
+import StatCard from '../components/StatsCard';
+import RecentActivity from '../components/RecentActivity';
+import RevenueChart from '../components/charts/RevenueCharts';
+import PropertyChart from '../components/charts/PropertyChart';
 
 const Dashboard = () => {
-  // Stats data
+  const [timeRange, setTimeRange] = useState('monthly');
+
   const stats = [
-    { 
-      title: 'Total Properties', 
-      value: '156', 
-      icon: <FaBuilding className="text-logoBlue" />, 
-      change: '+12%', 
-      trend: 'up',
-      color: 'bg-blue-50',
+    {
+      title: 'Total Properties',
+      value: '156',
+      change: '+12.5%',
+      icon: <FaHome className="text-2xl" />,
+      color: 'bg-blue-500',
       link: '/admin/properties'
     },
-    { 
-      title: 'Active Clients', 
-      value: '523', 
-      icon: <FaUsers className="text-logoRed" />, 
-      change: '+8%', 
-      trend: 'up',
-      color: 'bg-red-50',
+    {
+      title: 'Active Listings',
+      value: '89',
+      change: '+8.2%',
+      icon: <FaChartLine className="text-2xl" />,
+      color: 'bg-green-500',
+      link: '/admin/properties?status=active'
+    },
+    {
+      title: 'Blog Posts',
+      value: '48',
+      change: '+15.3%',
+      icon: <FaNewspaper className="text-2xl" />,
+      color: 'bg-purple-500',
+      link: '/admin/blog'
+    },
+    {
+      title: 'Total Users',
+      value: '2,847',
+      change: '+23.1%',
+      icon: <FaUsers className="text-2xl" />,
+      color: 'bg-orange-500',
       link: '/admin/users'
     },
-    { 
-      title: 'Active Bookings', 
-      value: '89', 
-      icon: <FaCalendarAlt className="text-logoYellow" />, 
-      change: '-3%', 
-      trend: 'down',
-      color: 'bg-yellow-50',
-      link: '/admin/bookings'
+    {
+      title: 'Monthly Revenue',
+      value: '₦8.5M',
+      change: '+18.4%',
+      icon: <FaDollarSign className="text-2xl" />,
+      color: 'bg-emerald-500',
+      link: '/admin/transactions'
     },
-    { 
-      title: 'Monthly Revenue', 
-      value: '₦42.5M', 
-      icon: <FaMoneyBillWave className="text-green-500" />, 
-      change: '+18%', 
-      trend: 'up',
-      color: 'bg-green-50',
+    {
+      title: 'Website Views',
+      value: '45.2K',
+      change: '+31.7%',
+      icon: <FaEye className="text-2xl" />,
+      color: 'bg-indigo-500',
       link: '/admin/analytics'
-    }
-  ]
+    },
+  ];
 
-  // Recent activities
   const activities = [
-    { id: 1, user: 'John Adekunle', action: 'Booked property', time: '2 hours ago', type: 'booking' },
-    { id: 2, user: 'Sarah Johnson', action: 'Submitted review', time: '4 hours ago', type: 'review' },
-    { id: 3, user: 'Michael Chen', action: 'Inquired about property', time: '6 hours ago', type: 'inquiry' },
-    { id: 4, user: 'David Smith', action: 'Property viewing scheduled', time: '1 day ago', type: 'viewing' },
-    { id: 5, user: 'Grace Williams', action: 'Signed rental agreement', time: '2 days ago', type: 'agreement' },
-  ]
+    {
+      id: 1,
+      user: 'John Doe',
+      action: 'listed a new property',
+      target: 'Luxury Villa in Ikoyi',
+      time: '2 hours ago',
+      icon: <FaHome />,
+      color: 'text-blue-500'
+    },
+    {
+      id: 2,
+      user: 'Sarah Smith',
+      action: 'inquired about',
+      target: '3-Bedroom Apartment Lekki',
+      time: '4 hours ago',
+      icon: <FaComment />,
+      color: 'text-green-500'
+    },
+    {
+      id: 3,
+      user: 'Admin',
+      action: 'published blog post',
+      target: '2024 Market Trends',
+      time: '1 day ago',
+      icon: <FaNewspaper />,
+      color: 'text-purple-500'
+    },
+    {
+      id: 4,
+      user: 'Michael Chen',
+      action: 'scheduled viewing for',
+      target: 'Commercial Space VI',
+      time: '2 days ago',
+      icon: <FaCalendarAlt />,
+      color: 'text-orange-500'
+    },
+  ];
 
-  // Properties needing attention
-  const pendingProperties = [
-    { id: 1, title: '4-Bedroom Duplex', location: 'Victoria Island', status: 'Pending Approval', days: 2 },
-    { id: 2, title: 'Commercial Office', location: 'Ikoyi', status: 'Needs Documentation', days: 3 },
-    { id: 3, title: '3-Bedroom Apartment', location: 'Lekki', status: 'Price Review', days: 1 },
-  ]
+  const upcomingViewings = [
+    { id: 1, property: 'Luxury Villa Ikoyi', client: 'Mr. Adebayo', date: 'Today, 2:00 PM' },
+    { id: 2, property: '3-Bedroom Lekki', client: 'Ms. Johnson', date: 'Tomorrow, 10:00 AM' },
+    { id: 3, property: 'Office Space VI', client: 'Tech Corp Ltd', date: 'Jan 20, 3:30 PM' },
+  ];
+
+  const recentMessages = [
+    { id: 1, name: 'David Wilson', email: 'david@email.com', message: 'Interested in Lekki property...', time: '2 hours ago' },
+    { id: 2, name: 'Grace Okoro', email: 'grace@email.com', message: 'Need consultation about...', time: '5 hours ago' },
+    { id: 3, name: 'James Anderson', email: 'james@email.com', message: 'Looking for commercial space...', time: '1 day ago' },
+  ];
 
   return (
-    <div className="space-y-6">
-      {/* Welcome Header */}
-      <div className="bg-gradient-to-r from-logoRed to-logoBlue rounded-2xl p-6 text-white">
-        <h1 className="text-2xl font-bold mb-2">Welcome back, Admin!</h1>
-        <p className="opacity-90">Here's what's happening with your real estate business today.</p>
+    <div>
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Dashboard Overview</h1>
+          <p className="text-gray-600 mt-2">Welcome back! Here's what's happening with your business today.</p>
+        </div>
+        <div className="mt-4 md:mt-0">
+          <div className="flex space-x-2">
+            <select 
+              value={timeRange}
+              onChange={(e) => setTimeRange(e.target.value)}
+              className="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            >
+              <option value="weekly">This Week</option>
+              <option value="monthly">This Month</option>
+              <option value="quarterly">This Quarter</option>
+              <option value="yearly">This Year</option>
+            </select>
+            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              Generate Report
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
         {stats.map((stat, index) => (
-          <Link 
-            key={index}
-            to={stat.link}
-            className={`${stat.color} p-6 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow`}
-          >
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-sm text-gray-600 mb-2">{stat.title}</p>
-                <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-                <div className="flex items-center mt-2">
-                  {stat.trend === 'up' ? (
-                    <FaArrowUp className="text-green-500 mr-1" />
-                  ) : (
-                    <FaArrowDown className="text-red-500 mr-1" />
-                  )}
-                  <span className={`text-sm ${stat.trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
-                    {stat.change} from last month
-                  </span>
-                </div>
-              </div>
-              <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center shadow-sm">
-                <div className="text-2xl">
-                  {stat.icon}
-                </div>
-              </div>
-            </div>
-          </Link>
+          <StatCard key={index} {...stat} />
         ))}
       </div>
 
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Recent Activities */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-100 p-6">
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        {/* Revenue Chart */}
+        <div className="bg-white rounded-xl border border-gray-200 p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold text-gray-900">Recent Activities</h2>
-            <Link to="/admin/analytics" className="text-logoBlue hover:text-blue-600 text-sm font-medium">
-              View All
-            </Link>
+            <h3 className="text-lg font-bold text-gray-900">Revenue Overview</h3>
+            <div className="text-sm text-gray-500">Last 6 months</div>
           </div>
-          
-          <div className="space-y-4">
-            {activities.map((activity) => (
-              <div key={activity.id} className="flex items-center p-4 border border-gray-100 rounded-xl hover:bg-gray-50 transition-colors">
-                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4">
-                  {activity.type === 'booking' && <FaCalendarAlt className="text-logoBlue" />}
-                  {activity.type === 'review' && <FaStar className="text-logoYellow" />}
-                  {activity.type === 'inquiry' && <FaUsers className="text-logoRed" />}
-                  {activity.type === 'viewing' && <FaBuilding className="text-green-500" />}
-                  {activity.type === 'agreement' && <FaMoneyBillWave className="text-purple-500" />}
-                </div>
-                <div className="flex-1">
-                  <p className="font-medium text-gray-900">{activity.user}</p>
-                  <p className="text-sm text-gray-600">{activity.action}</p>
-                </div>
-                <div className="text-sm text-gray-500">{activity.time}</div>
-              </div>
-            ))}
-          </div>
+          <RevenueChart />
         </div>
 
-        {/* Properties Needing Attention */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">Properties Needing Attention</h2>
-          
-          <div className="space-y-4">
-            {pendingProperties.map((property) => (
-              <div key={property.id} className="p-4 border border-gray-100 rounded-xl hover:shadow-sm transition-shadow">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-medium text-gray-900">{property.title}</h3>
-                  <span className="px-3 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">
-                    {property.status}
-                  </span>
-                </div>
-                <p className="text-sm text-gray-600 mb-3">{property.location}</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-gray-500">Pending for {property.days} day{property.days > 1 ? 's' : ''}</span>
-                  <Link 
-                    to={`/admin/properties/${property.id}`}
-                    className="text-sm text-logoBlue hover:text-blue-600 font-medium"
-                  >
-                    Review →
-                  </Link>
-                </div>
-              </div>
-            ))}
+        {/* Property Types Chart */}
+        <div className="bg-white rounded-xl border border-gray-200 p-6">
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="text-lg font-bold text-gray-900">Property Distribution</h3>
+            <div className="text-sm text-gray-500">By type</div>
           </div>
-
-          <div className="mt-6 pt-6 border-t border-gray-100">
-            <Link 
-              to="/admin/properties?filter=pending"
-              className="block w-full py-3 bg-gray-50 text-center text-gray-700 font-medium rounded-lg hover:bg-gray-100 transition-colors"
-            >
-              View All Pending Properties
-            </Link>
-          </div>
+          <PropertyChart />
         </div>
       </div>
 
-      {/* Quick Actions */}
-      <div className="bg-white rounded-2xl border border-gray-100 p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-6">Quick Actions</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Link 
-            to="/admin/properties/new"
-            className="p-4 border-2 border-dashed border-gray-200 rounded-xl hover:border-logoBlue hover:bg-blue-50 transition-colors group"
-          >
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-blue-200 transition-colors">
-                <FaBuilding className="text-logoBlue text-xl" />
-              </div>
-              <p className="font-medium text-gray-900">Add New Property</p>
-              <p className="text-sm text-gray-600 mt-1">List a new property for sale/rent</p>
+      {/* Lower Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Recent Activity */}
+        <div className="lg:col-span-2">
+          <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-lg font-bold text-gray-900">Recent Activity</h3>
+              <Link to="/admin/activity" className="text-blue-600 text-sm font-medium hover:text-blue-700">
+                View All
+              </Link>
             </div>
-          </Link>
+            <RecentActivity activities={activities} />
+          </div>
 
-          <Link 
-            to="/admin/reviews/moderate"
-            className="p-4 border-2 border-dashed border-gray-200 rounded-xl hover:border-logoYellow hover:bg-yellow-50 transition-colors group"
-          >
-            <div className="text-center">
-              <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-yellow-200 transition-colors">
-                <FaStar className="text-logoYellow text-xl" />
-              </div>
-              <p className="font-medium text-gray-900">Moderate Reviews</p>
-              <p className="text-sm text-gray-600 mt-1">Approve or reject area reviews</p>
+          {/* Upcoming Viewings */}
+          <div className="bg-white rounded-xl border border-gray-200 p-6 mt-6">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-lg font-bold text-gray-900">Upcoming Viewings</h3>
+              <Link to="/admin/appointments" className="text-blue-600 text-sm font-medium hover:text-blue-700">
+                View Calendar
+              </Link>
             </div>
-          </Link>
+            <div className="space-y-4">
+              {upcomingViewings.map((viewing) => (
+                <div key={viewing.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div>
+                    <h4 className="font-medium text-gray-900">{viewing.property}</h4>
+                    <p className="text-sm text-gray-600">Client: {viewing.client}</p>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-medium text-gray-900">{viewing.date}</div>
+                    <Link to={`/admin/appointments/${viewing.id}`} className="text-sm text-blue-600 hover:text-blue-700">
+                      Details
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
 
-          <Link 
-            to="/admin/analytics/reports"
-            className="p-4 border-2 border-dashed border-gray-200 rounded-xl hover:border-logoRed hover:bg-red-50 transition-colors group"
-          >
-            <div className="text-center">
-              <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-red-200 transition-colors">
-                <FaChartBar className="text-logoRed text-xl" />
-              </div>
-              <p className="font-medium text-gray-900">Generate Report</p>
-              <p className="text-sm text-gray-600 mt-1">Create monthly performance report</p>
+        {/* Recent Messages */}
+        <div>
+          <div className="bg-white rounded-xl border border-gray-200 p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-lg font-bold text-gray-900">Recent Messages</h3>
+              <Link to="/admin/messages" className="text-blue-600 text-sm font-medium hover:text-blue-700">
+                View All
+              </Link>
             </div>
-          </Link>
+            <div className="space-y-4">
+              {recentMessages.map((message) => (
+                <div key={message.id} className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="flex items-start space-x-3">
+                    <div className="flex-shrink-0">
+                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                        <FaEnvelope className="text-blue-600" />
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h4 className="font-medium text-gray-900">{message.name}</h4>
+                          <p className="text-sm text-gray-500">{message.email}</p>
+                        </div>
+                        <span className="text-xs text-gray-500">{message.time}</span>
+                      </div>
+                      <p className="text-sm text-gray-700 mt-2 line-clamp-2">{message.message}</p>
+                      <Link 
+                        to={`/admin/messages/${message.id}`}
+                        className="inline-flex items-center text-sm text-blue-600 hover:text-blue-700 mt-2"
+                      >
+                        Reply
+                        <FaArrowRight className="ml-1 text-xs" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6">
+              <Link 
+                to="/admin/messages"
+                className="block w-full py-3 text-center border-2 border-blue-600 text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-colors"
+              >
+                View All Messages
+              </Link>
+            </div>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="bg-white rounded-xl border border-gray-200 p-6 mt-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-6">Quick Actions</h3>
+            <div className="space-y-3">
+              <Link 
+                to="/admin/properties/new"
+                className="flex items-center justify-center w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                <FaHome className="mr-2" />
+                Add New Property
+              </Link>
+              <Link 
+                to="/admin/blog/new"
+                className="flex items-center justify-center w-full py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              >
+                <FaNewspaper className="mr-2" />
+                Create Blog Post
+              </Link>
+              <Link 
+                to="/admin/users/new"
+                className="flex items-center justify-center w-full py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+              >
+                <FaUsers className="mr-2" />
+                Add New User
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
