@@ -1,6 +1,7 @@
 // src/admin/components/Sidebar.jsx
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import  logo  from '../images/logo.png'
 import { 
   FaHome,
   FaNewspaper,
@@ -134,7 +135,7 @@ const Sidebar = ({ collapsed = false, onClose }) => {
           {!collapsed ? (
             <>
               <div className="relative">
-                <img src="/logo.png" width="40" alt="BarbsConsult Logo" />
+                <img src={logo} width="40" alt="BarbsConsult Logo" />
               </div>
               <div>
                 <div className="text-xl font-bold text-white">

@@ -251,7 +251,7 @@ const Header = () => {
               ))}
               
               {/* Admin Button for Desktop */}
-              {isLoggedIn ? (
+              {/* {isLoggedIn ? (
                 <div className="relative group">
                   <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition">
                     <FaUser />
@@ -282,16 +282,16 @@ const Header = () => {
                     >
                       Logout
                     </button>
-                  </div>
-                </div>
-              ) : (
-                <Link
+                  </div> */
+                /* </div> */
+              /* ) : ( */}\
+                {/* <Link
                   to="/contact"
                   className="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition"
                 >
                   Book Consultation
                 </Link>
-              )}
+              )} */}
             </div>
 
             {/* MOBILE TOGGLE */}
