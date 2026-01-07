@@ -197,7 +197,7 @@ const HeroSection = () => {
           </AnimatePresence>
 
           {/* SUBTITLE */}
-          <p className="mt-4 text-sm md:text-base max-w-md">{slide.subtitle}</p>
+          {/* <p className="mt-4 text-sm md:text-base max-w-md">{slide.subtitle}</p> */}
 
           {/* STAT */}
           <div
