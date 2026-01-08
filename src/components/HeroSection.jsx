@@ -20,8 +20,8 @@ const themeColors = ["#1C78C0", "#E44C30", "#F2C94C"];
 /* ================= SLIDES ================= */
 const slides = [
   {
-    title: "Do you know why many properties fail to deliver the returns investors expect?",
-    highlightedTitle: "It's not the location. It's not the market. It's poor property management.",
+    title: "Why do many properties fail to meet investors’ expected returns?",
+    highlightedTitle: "It’s ineffective property management.",
     subtitle: "Many properties underperform because they are not properly managed. Unlock true ROI by taking control today.",
     tag: "MANAGEMENT REALITY",
     tagIcon: FaExclamationTriangle,
