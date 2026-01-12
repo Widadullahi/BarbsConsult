@@ -403,7 +403,7 @@ const Home = () => {
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
             <Link 
-              to="/contact" 
+              to="https://wa.me/2347066063908"
               className="px-10 py-5 bg-white text-blue-700 font-bold rounded-xl text-lg hover:bg-gray-100 transition flex items-center justify-center"
             >
               <FaPhone className="mr-3" />
@@ -411,7 +411,7 @@ const Home = () => {
             </Link>
             
             <Link 
-              to="/contact" 
+              to="https://wa.me/2347066063908" 
               className="px-10 py-5 bg-transparent border-2 border-white text-white font-bold rounded-xl text-lg hover:bg-white/10 transition flex items-center justify-center"
             >
               <FaWhatsapp className="mr-3" />
@@ -432,7 +432,7 @@ const Home = () => {
             </div>
             <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl">
               <FaWhatsapp className="text-white text-2xl mb-4 mx-auto" />
-              <h4 className="font-bold mb-2">WhatsApp</h4>
+              <h4 className="font-bold mb-2"><a href="https://wa.me/2347066063908">WhatsApp</a></h4>
               <p>Chat with our agents</p>
             </div>
           </div>

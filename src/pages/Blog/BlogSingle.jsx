@@ -1,4 +1,4 @@
-// pages/BlogSingle.jsx
+ // pages/BlogSingle.jsx
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { 
@@ -15,6 +15,7 @@ import {
   FaWhatsapp
 } from 'react-icons/fa';
 import BlogSidebar from './BlogSidebar';
+import BlogMain from './BlogMain';
 
 const BlogSingle = () => {
   const { slug } = useParams();
@@ -104,7 +105,7 @@ const BlogSingle = () => {
         <div className="relative pt-32 pb-16">
           <div className="container mx-auto px-4 max-w-4xl">
             <Link 
-              to="/blog"
+              to="/BlogMain"
               className="inline-flex items-center gap-2 text-white hover:text-gray-200 mb-6"
             >
               <FaArrowLeft />

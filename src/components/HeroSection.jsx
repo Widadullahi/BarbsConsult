@@ -209,7 +209,7 @@ const HeroSection = () => {
 
           {/* CTA */}
           <a
-            href="https://wa.me/2341234567890"
+            href="https://wa.me/2347066063908"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-6 inline-flex items-center rounded-md px-5 py-3 text-sm font-semibold transition-colors"

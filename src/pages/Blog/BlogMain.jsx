@@ -20,7 +20,7 @@ import BlogCard from './BlogCard';
 import BlogFeatured from './BlogFeatured';
 import BlogSidebar from './BlogSidebar';
 import BlogAdmin from './BlogAdmin';
-// import { useAuth } from '../../contexts/AuthContext';
+import { useBarbs } from '../../contexts/BarbsContext';
 
 const BlogMain = () => {
   const [posts, setPosts] = useState([]);
@@ -30,7 +30,7 @@ const BlogMain = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [isAdminMode, setIsAdminMode] = useState(false);
-  const { user } = useAuth();
+  const { user, isAdmin } = useBarbs();
   
   const postsPerPage = 6;
 
@@ -61,7 +61,91 @@ const BlogMain = () => {
             views: 1245,
             comments: 23
           },
-          // Add more posts...
+          {
+            id: 2,
+            title: 'Smart Investment Strategies for Beginners',
+            excerpt: 'Learn how to make your first real estate investment with confidence and minimal risk.',
+            content: 'Full article content here...',
+            category: 'investment',
+            date: '2023-11-28',
+            readTime: '7 min read',
+            author: 'Sarah Williams',
+            authorImage: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80',
+            image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            tags: ['Investment', 'Beginners', 'Strategy'],
+            featured: false,
+            slug: 'smart-investment-strategies-for-beginners',
+            views: 892,
+            comments: 15
+          },
+          {
+            id: 3,
+            title: 'Understanding Property Taxes in Nigeria',
+            excerpt: 'A comprehensive guide to property taxes, rates, and payment procedures.',
+            content: 'Full article content here...',
+            category: 'legal',
+            date: '2023-11-10',
+            readTime: '8 min read',
+            author: 'David Okonkwo',
+            authorImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80',
+            image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            tags: ['Legal', 'Taxes', 'Nigeria'],
+            featured: false,
+            slug: 'understanding-property-taxes-in-nigeria',
+            views: 1103,
+            comments: 42
+          },
+          {
+            id: 4,
+            title: 'Home Maintenance Checklist for New Owners',
+            excerpt: 'Essential maintenance tasks to keep your property in top condition year-round.',
+            content: 'Full article content here...',
+            category: 'property',
+            date: '2023-10-22',
+            readTime: '6 min read',
+            author: 'Maria Garcia',
+            authorImage: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80',
+            image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            tags: ['Maintenance', 'Homeowners', 'Checklist'],
+            featured: false,
+            slug: 'home-maintenance-checklist-for-new-owners',
+            views: 756,
+            comments: 18
+          },
+          {
+            id: 5,
+            title: 'Commercial Real Estate Trends 2024',
+            excerpt: 'What to expect in the commercial property market in the coming year.',
+            content: 'Full article content here...',
+            category: 'market',
+            date: '2023-10-05',
+            readTime: '9 min read',
+            author: 'Robert Chen',
+            authorImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80',
+            image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            tags: ['Commercial', 'Trends', 'Business'],
+            featured: false,
+            slug: 'commercial-real-estate-trends-2024',
+            views: 1342,
+            comments: 29
+          },
+          {
+            id: 6,
+            title: 'Mortgage Guide for First-Time Buyers',
+            excerpt: 'Everything you need to know about getting a mortgage in Nigeria.',
+            content: 'Full article content here...',
+            category: 'guides',
+            date: '2023-09-18',
+            readTime: '10 min read',
+            author: 'Amina Bello',
+            authorImage: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80',
+            image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+            tags: ['Mortgage', 'First-Time Buyers', 'Finance'],
+            featured: false,
+            slug: 'mortgage-guide-for-first-time-buyers',
+            views: 985,
+            comments: 31
+          }
         ],
         categories: [
           { id: 'market', name: 'Market Trends', count: 5 },
@@ -105,37 +189,88 @@ const BlogMain = () => {
   // Handle post actions
   const handleDeletePost = async (postId) => {
     if (window.confirm('Are you sure you want to delete this post?')) {
-      // API call to delete post
       setPosts(posts.filter(post => post.id !== postId));
+      alert('Post deleted successfully!');
     }
   };
 
   const toggleFeatured = async (postId) => {
-    // API call to toggle featured status
     const updatedPosts = posts.map(post => ({
       ...post,
       featured: post.id === postId
     }));
     setPosts(updatedPosts);
     setFeaturedPost(updatedPosts.find(post => post.id === postId));
+    alert('Featured post updated!');
   };
 
-  if (isAdminMode && user?.isAdmin) {
-    return <BlogAdmin posts={posts} setPosts={setPosts} categories={categories} />;
+  // Admin mode check
+  if (isAdminMode && isAdmin) {
+    return (
+      <div className="py-16">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-3xl font-bold text-gray-900">Blog Admin Panel</h1>
+            <button
+              onClick={() => setIsAdminMode(false)}
+              className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+            >
+              ← Back to Blog View
+            </button>
+          </div>
+          <BlogAdmin posts={posts} setPosts={setPosts} categories={categories} />
+        </div>
+      </div>
+    );
   }
 
   return (
     <section id="blog" className="py-16 md:py-20 bg-white">
       <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         
-        {/* Admin Toggle */}
-        {user?.isAdmin && (
+        {/* Admin Header Section */}
+        {isAdmin && (
+          <div className="flex justify-between items-center mb-6 p-4 bg-blue-50 rounded-lg">
+            <div className="flex items-center gap-3">
+              {user?.avatar && (
+                <img 
+                  src={user.avatar} 
+                  alt={user.name}
+                  className="w-10 h-10 rounded-full"
+                />
+              )}
+              <div>
+                <p className="font-medium text-gray-900">Welcome, {user?.name || 'Admin'}</p>
+                <p className="text-sm text-gray-600">You have admin privileges</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setIsAdminMode(!isAdminMode)}
+                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                {isAdminMode ? '← View Blog' : 'Admin Panel'}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Login Button for Non-Admins */}
+        {!user && (
           <div className="flex justify-end mb-6">
             <button
-              onClick={() => setIsAdminMode(!isAdminMode)}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              onClick={() => {
+                // You can add a login modal trigger here
+                const email = prompt('Enter admin email:', 'admin@barbsconsult.com');
+                const password = prompt('Enter password:', 'admin123');
+                if (email && password) {
+                  const { login } = useBarbs();
+                  login(email, password);
+                }
+              }}
+              className="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
             >
-              {isAdminMode ? '← View Blog' : 'Admin Panel'}
+              Admin Login
             </button>
           </div>
         )}
@@ -207,8 +342,8 @@ const BlogMain = () => {
                 <BlogCard 
                   key={post.id} 
                   post={post}
-                  onDelete={user?.isAdmin ? () => handleDeletePost(post.id) : null}
-                  onToggleFeatured={user?.isAdmin ? () => toggleFeatured(post.id) : null}
+                  onDelete={isAdmin ? () => handleDeletePost(post.id) : null}
+                  onToggleFeatured={isAdmin ? () => toggleFeatured(post.id) : null}
                 />
               ))}
             </div>

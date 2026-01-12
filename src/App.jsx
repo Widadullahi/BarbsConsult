@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Header from './components/Layout/Header'
 import Footer from './components/Layout/Footer'
-
+import { BarbsProvider } from './contexts/BarbsContext';
 // Page imports
 import Home from './pages/Home'
 import Listings from './pages/Listings'

@@ -169,7 +169,7 @@ const BlogCategory = () => {
       <div className={`relative bg-gradient-to-r ${categoryInfo.color || 'from-gray-800 to-gray-900'}`}>
         <div className="absolute inset-0 bg-black/50">
           <img 
-            src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+            src="https://images.unsplash.com/photo-1759822809866-e998425e9051?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmVhbCUyMGVzdGF0ZSUyMGV2ZW50fGVufDB8fDB8fHww"
             alt={categoryInfo.name}
             className="w-full h-full object-cover mix-blend-overlay"
           />

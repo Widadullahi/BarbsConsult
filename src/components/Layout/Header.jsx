@@ -103,7 +103,7 @@ const Header = () => {
 
           <div className="flex gap-4 items-center">
             <a
-              href="https://wa.me/2341234567890"
+              href="https://wa.me/2347066063908"
               className="bg-green-600 px-3 py-1 rounded-full hover:bg-green-700 transition"
             >
               <FaWhatsapp className="inline mr-2" /> WhatsApp
