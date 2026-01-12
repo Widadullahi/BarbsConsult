@@ -28,7 +28,7 @@ const Services = () => {
         'Legal Documentation',
         'Closing Process Management'
       ],
-      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1505843513577-22bb7d21e455?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFuc2lvbnxlbnwwfHwwfHx8MA%3D%3D',
       color: 'from-blue-600 to-blue-700'
     },
     {
@@ -43,8 +43,8 @@ const Services = () => {
         'Shortlet Marketing',
         'Guest Services'
       ],
-      image: 'https://images.unsplash.com/photo-1558036117-15e82a2c9a9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      color: 'from-green-600 to-green-700'
+      image: 'https://images.unsplash.com/photo-1702014862053-946a122b920d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3R1ZGlvJTIwYXBhcnRtZW50fGVufDB8fDB8fHww',
+      color: 'from-green-100 to-green-700'
     },
     {
       id: 'property-management',
@@ -104,10 +104,10 @@ const Services = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-blue-900 to-blue-800">
+      <div className="relative bg-gradient-to-r from-blue-300 to-blue-800">
         <div className="absolute inset-0 bg-black/50">
           <img 
-            src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+            src="https://images.unsplash.com/photo-1718766304636-cb9309953a55?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFnb3MlMjBhcmVpbHxlbnwwfHwwfHx8MA%3D%3D"
             alt="Real Estate Services"
             className="w-full h-full object-cover mix-blend-overlay"
           />
@@ -118,11 +118,11 @@ const Services = () => {
             <div className="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full mb-6">
               <span className="text-white font-medium text-sm uppercase tracking-wider">Our Services</span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              Comprehensive Real Estate <span className="text-blue-300">Solutions</span>
+            <h1 className="text-2xl md:text-4xl font-bold text-white mb-6">
+              Strategic Property Acquisition <span className="text-blue-300">Maximum Returns</span>
             </h1>
             <p className="text-xl text-blue-100 mb-8">
-              Expert services tailored to meet all your real estate needs. From buying your first home to managing investment properties, we're here to guide you.
+              Expert real estate services tailored to your goals. From buying your first home to managing high-performing investment properties, we guide every decision with strategy and insight.
             </p>
             <a 
               href="#services" 
@@ -143,7 +143,7 @@ const Services = () => {
               Our Core <span className="text-blue-600">Services</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Each service is designed to provide maximum value and peace of mind throughout your real estate journey
+              From first-time homebuyers to seasoned investors, and short-let management to long-term rentals, we deliver tailored real estate solutions that maximize value and minimize stress.
             </p>
           </div>
 

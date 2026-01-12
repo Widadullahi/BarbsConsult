@@ -10,41 +10,24 @@ import {
   FaHome,
   FaBuilding,
   FaKey,
-  FaUser,
   FaSignInAlt,
 } from 'react-icons/fa'
-import  logo  from '../images/logo.png'
+import logo from '../images/logo.png'
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState(null)
   const [activeSubDropdown, setActiveSubDropdown] = useState(null)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const location = useLocation()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', onScroll)
-    
-    // Check if user is logged in (admin)
-    const token = localStorage.getItem('admin_token')
-    setIsLoggedIn(!!token)
-    
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const handleLogout = () => {
-    localStorage.removeItem('admin_token')
-    localStorage.removeItem('admin_user')
-    setIsLoggedIn(false)
-    window.location.href = '/admin/login'
-  }
-
-  /* ======================
-     PROPERTY STRUCTURE
-  ====================== */
-
+  // ── Property Types (Public) ────────────────────────────────────────
   const propertyTypes = [
     {
       name: 'Buy',
@@ -54,7 +37,6 @@ const Header = () => {
         { name: 'Lands', path: '/listings?type=land-sale' },
         { name: 'Apartments', path: '/listings?type=apartments-sale' },
         { name: 'Duplexes', path: '/listings?type=duplexes-sale' },
-
         {
           name: 'Commercial',
           children: [
@@ -75,7 +57,6 @@ const Header = () => {
         { name: 'Long Term Lease (1+ years)', path: '/listings?type=long-lease' },
         { name: 'Apartments for Rent', path: '/listings?type=apartments-rent' },
         { name: 'Houses for Rent', path: '/listings?type=houses-rent' },
-
         {
           name: 'Commercial',
           children: [
@@ -108,66 +89,64 @@ const Header = () => {
 
   return (
     <>
-      {/* TOP BAR */}
+      {/* TOP BAR - Contact + Admin Login only */}
       <div className="hidden md:block bg-gray-900 text-white py-2">
         <div className="container-custom px-6 flex justify-between text-sm">
           <div className="flex gap-6">
-            <a href="tel:+2341234567890"><FaPhone className="inline mr-2" />+234 123 456 7890</a>
-            <a href="mailto:info@barbs-consultant.com"><FaEnvelope className="inline mr-2" />info@barbs-consultant.com</a>
+            <a href="tel:+2341234567890">
+              <FaPhone className="inline mr-2" />+234 123 456 7890
+            </a>
+            <a href="mailto:info@barbs-consultant.com">
+              <FaEnvelope className="inline mr-2" />info@barbs-consultant.com
+            </a>
           </div>
-          <div className="flex gap-4">
-            <a href="https://wa.me/2341234567890" className="bg-green-600 px-3 py-1 rounded-full hover:bg-green-700 transition">
+
+          <div className="flex gap-4 items-center">
+            <a
+              href="https://wa.me/2341234567890"
+              className="bg-green-600 px-3 py-1 rounded-full hover:bg-green-700 transition"
+            >
               <FaWhatsapp className="inline mr-2" /> WhatsApp
             </a>
-            
-            {/* Admin Login/Logout Button */}
-            {isLoggedIn ? (
-              <div className="relative group">
-                <button className="flex items-center gap-2 px-3 py-1 bg-blue-600 rounded-full hover:bg-blue-700 transition">
-                  <FaUser />
-                  <span>Admin</span>
-                </button>
-                <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                  <Link 
-                    to="/admin" 
-                    className="block px-4 py-3 hover:bg-blue-50 rounded-t-lg border-b"
-                  >
-                    Dashboard
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="block w-full text-left px-4 py-3 hover:bg-red-50 text-red-600 rounded-b-lg"
-                  >
-                    Logout
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <Link 
-                to="/admin/login" 
-                className="flex items-center gap-2 px-3 py-1 bg-purple-600 rounded-full hover:bg-purple-700 transition"
-              >
-                <FaSignInAlt />
-                <span>Admin Login</span>
-              </Link>
-            )}
+
+            {/* Always show Admin Login */}
+            <Link
+              to="/admin/login"
+              className="flex items-center gap-2 px-3 py-1 bg-purple-600 rounded-full hover:bg-purple-700 transition"
+            >
+              <FaSignInAlt />
+              <span>Admin Login</span>
+            </Link>
           </div>
         </div>
       </div>
 
+      {/* MAIN HEADER */}
       <header className={`sticky top-0 z-50 ${scrolled ? 'bg-white shadow-lg' : 'bg-white'}`}>
         <nav className="container-custom px-6 py-4">
           <div className="flex justify-between items-center">
             {/* LOGO */}
             <Link to="/" className="flex items-center gap-3">
-              <img src={logo} width={50} alt="Logo" />
+              <img src={logo} width={50} alt="Barbs Consult Logo" />
               <span className="font-bold text-xl text-blue-600">
                 Barbs<span className="text-gray-900">Consult</span>
               </span>
             </Link>
 
-            {/* DESKTOP NAV */}
-            <div className="hidden lg:flex gap-2">
+            {/* DESKTOP NAV - Public items only */}
+            <div className="hidden lg:flex gap-6 items-center">
+              {mainNavItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className={`hover:text-blue-600 transition-colors ${
+                    location.pathname === item.path ? 'text-blue-600 font-semibold' : ''
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+
               {propertyTypes.map((item) => (
                 <div key={item.name} className="relative">
                   <button
@@ -175,11 +154,11 @@ const Header = () => {
                       setActiveDropdown(activeDropdown === item.name ? null : item.name)
                       setActiveSubDropdown(null)
                     }}
-                    className="px-4 py-2 flex items-center gap-1 hover:text-blue-600"
+                    className="px-4 py-2 flex items-center gap-1 hover:text-blue-600 transition-colors"
                   >
                     {item.icon}
                     {item.name}
-                    <FaChevronDown />
+                    <FaChevronDown className="text-sm" />
                   </button>
 
                   {activeDropdown === item.name && (
@@ -197,14 +176,14 @@ const Header = () => {
                             >
                               {sub.name}
                               <FaChevronDown
-                                className={`transition ${
+                                className={`transition-transform duration-200 ${
                                   activeSubDropdown === sub.name ? 'rotate-180' : ''
                                 }`}
                               />
                             </button>
 
                             {activeSubDropdown === sub.name && (
-                              <div className="pl-6 pb-2">
+                              <div className="pl-6 pb-2 bg-gray-50">
                                 {sub.children.map((child) => (
                                   <Link
                                     key={child.name}
@@ -238,64 +217,8 @@ const Header = () => {
               ))}
             </div>
 
-            {/* RIGHT NAV */}
-            <div className="hidden lg:flex gap-6 items-center">
-              {mainNavItems.map((item) => (
-                <Link 
-                  key={item.name} 
-                  to={item.path} 
-                  className={`hover:text-blue-600 ${location.pathname === item.path ? 'text-blue-600 font-semibold' : ''}`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              
-              {/* Admin Button for Desktop */}
-              {isLoggedIn ? (
-                <div className="relative group">
-                  <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition">
-                    <FaUser />
-                    <span>Admin Panel</span>
-                  </button>
-                  <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                    <Link 
-                      to="/admin" 
-                      className="block px-4 py-3 hover:bg-blue-50 rounded-t-lg border-b"
-                    >
-                      Dashboard
-                    </Link>
-                    <Link 
-                      to="/admin/properties" 
-                      className="block px-4 py-3 hover:bg-blue-50 border-b"
-                    >
-                      Properties
-                    </Link>
-                    <Link 
-                      to="/admin/blog" 
-                      className="block px-4 py-3 hover:bg-blue-50 border-b"
-                    >
-                      Blog
-                    </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="block w-full text-left px-4 py-3 hover:bg-red-50 text-red-600 rounded-b-lg"
-                    >
-                      Logout
-                    </button>
-                  </div> 
-                 </div> 
-               ) : (
-                 <Link
-                  to="/contact"
-                  className="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition"
-                >
-                  Book Consultation
-                </Link>
-              )} 
-            </div>
-
-            {/* MOBILE TOGGLE */}
-            <button className="lg:hidden text-2xl" onClick={() => setIsOpen(!isOpen)}>
+            {/* MOBILE MENU TOGGLE */}
+            <button className="lg:hidden text-2xl text-gray-700" onClick={() => setIsOpen(!isOpen)}>
               {isOpen ? <FaTimes /> : <FaBars />}
             </button>
           </div>
@@ -303,32 +226,34 @@ const Header = () => {
 
         {/* MOBILE MENU */}
         {isOpen && (
-          <div className="lg:hidden bg-white border-t">
-            <div className="container-custom px-6 py-4">
-              {/* Property Types in Mobile */}
+          <div className="lg:hidden bg-white border-t shadow-lg">
+            <div className="container-custom px-6 py-5">
+              {/* Property Types */}
               <div className="mb-6">
-                <h3 className="font-bold text-gray-900 mb-3">Property Types</h3>
-                <div className="grid grid-cols-1 gap-2">
+                <h3 className="font-bold text-gray-900 mb-3">Properties</h3>
+                <div className="space-y-2">
                   {propertyTypes.map((item) => (
-                    <div key={item.name} className="border rounded-lg">
+                    <div key={item.name} className="border rounded-lg overflow-hidden">
                       <button
                         onClick={() => {
                           setActiveDropdown(activeDropdown === item.name ? null : item.name)
                           setActiveSubDropdown(null)
                         }}
-                        className="w-full flex items-center justify-between p-3"
+                        className="w-full flex items-center justify-between p-3 bg-gray-50"
                       >
-                        <span className="flex items-center">
+                        <span className="flex items-center gap-2">
                           {item.icon}
-                          <span className="ml-2">{item.name}</span>
+                          {item.name}
                         </span>
-                        <FaChevronDown 
-                          className={activeDropdown === item.name ? 'rotate-180' : ''}
+                        <FaChevronDown
+                          className={`transition-transform ${
+                            activeDropdown === item.name ? 'rotate-180' : ''
+                          }`}
                         />
                       </button>
-                      
+
                       {activeDropdown === item.name && (
-                        <div className="pl-4 pb-3">
+                        <div className="px-4 pb-3 pt-1">
                           {item.dropdown.map((sub) =>
                             sub.children ? (
                               <div key={sub.name} className="mt-2">
@@ -338,22 +263,24 @@ const Header = () => {
                                       activeSubDropdown === sub.name ? null : sub.name
                                     )
                                   }
-                                  className="w-full flex justify-between items-center p-2"
+                                  className="w-full flex justify-between items-center py-2 font-medium"
                                 >
-                                  <span className="font-medium">{sub.name}</span>
-                                  <FaChevronDown 
-                                    className={activeSubDropdown === sub.name ? 'rotate-180' : ''}
+                                  {sub.name}
+                                  <FaChevronDown
+                                    className={`transition-transform ${
+                                      activeSubDropdown === sub.name ? 'rotate-180' : ''
+                                    }`}
                                   />
                                 </button>
-                                
+
                                 {activeSubDropdown === sub.name && (
-                                  <div className="pl-4">
+                                  <div className="pl-4 mt-1 space-y-1">
                                     {sub.children.map((child) => (
                                       <Link
                                         key={child.name}
                                         to={child.path}
                                         onClick={() => setIsOpen(false)}
-                                        className="block py-2 text-sm text-gray-600"
+                                        className="block py-1.5 text-gray-700 hover:text-blue-600"
                                       >
                                         • {child.name}
                                       </Link>
@@ -366,7 +293,7 @@ const Header = () => {
                                 key={sub.name}
                                 to={sub.path}
                                 onClick={() => setIsOpen(false)}
-                                className="block py-2 text-gray-600"
+                                className="block py-2 text-gray-700 hover:text-blue-600"
                               >
                                 • {sub.name}
                               </Link>
@@ -379,16 +306,20 @@ const Header = () => {
                 </div>
               </div>
 
-              {/* Main Navigation in Mobile */}
+              {/* Main Navigation */}
               <div className="mb-6">
-                <h3 className="font-bold text-gray-900 mb-3">Navigation</h3>
+                <h3 className="font-bold text-gray-900 mb-3">Menu</h3>
                 <div className="space-y-2">
                   {mainNavItems.map((item) => (
                     <Link
                       key={item.name}
                       to={item.path}
                       onClick={() => setIsOpen(false)}
-                      className={`block py-2 ${location.pathname === item.path ? 'text-blue-600 font-semibold' : 'text-gray-700'}`}
+                      className={`block py-2 ${
+                        location.pathname === item.path
+                          ? 'text-blue-600 font-semibold'
+                          : 'text-gray-700'
+                      }`}
                     >
                       {item.name}
                     </Link>
@@ -396,44 +327,21 @@ const Header = () => {
                 </div>
               </div>
 
-              {/* Admin Section in Mobile */}
-              <div className="pt-4 border-t">
-                {isLoggedIn ? (
-                  <div className="space-y-3">
-                    <Link
-                      to="/admin"
-                      onClick={() => setIsOpen(false)}
-                      className="flex items-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-lg font-bold"
-                    >
-                      <FaUser />
-                      Admin Dashboard
-                    </Link>
-                    <button
-                      onClick={() => {
-                        handleLogout()
-                        setIsOpen(false)
-                      }}
-                      className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-red-600 text-white rounded-lg font-bold"
-                    >
-                      <FaSignInAlt className="rotate-180" />
-                      Logout
-                    </button>
-                  </div>
-                ) : (
-                  <Link
-                    to="/admin/login"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-center gap-2 px-4 py-3 bg-purple-600 text-white rounded-lg font-bold"
-                  >
-                    <FaSignInAlt />
-                    Admin Login
-                  </Link>
-                )}
-                
+              {/* Admin Login + Consultation */}
+              <div className="pt-4 border-t space-y-3">
+                <Link
+                  to="/admin/login"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-center gap-2 px-4 py-3 bg-purple-600 text-white rounded-lg font-bold hover:bg-purple-700 transition"
+                >
+                  <FaSignInAlt />
+                  Admin Login
+                </Link>
+
                 <Link
                   to="/contact"
                   onClick={() => setIsOpen(false)}
-                  className="mt-4 flex items-center justify-center px-4 py-3 bg-blue-600 text-white rounded-lg font-bold"
+                  className="flex items-center justify-center px-4 py-3 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition"
                 >
                   Book Consultation
                 </Link>

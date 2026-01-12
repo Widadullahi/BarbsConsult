@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaLock, FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa';
-
+import logo from '../images/logo.png';
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -49,7 +49,7 @@ const Login = () => {
         <Link to="/" className="flex justify-center">
           <div className="flex items-center space-x-3">
             <div className="relative">
-              <img src="/logo.png" width="50" alt="BarbsConsult Logo" />
+              <img src={logo} width="50" alt="BarbsConsult Logo" />
             </div>
             <div>
               <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">
