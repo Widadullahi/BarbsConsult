@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { BarbsProvider } from './contexts/barbs/BarbsProvider';
 import Header from './components/Layout/Header'
 import Footer from './components/Layout/Footer'
-
+import NeighboorhoodsGuide from './components/NeighboorhoodsGuide'
 // Page imports
 import Home from './pages/Home'
 import Listings from './pages/Listings'
@@ -62,6 +62,7 @@ function App() {
                     {/* Home */}
                     <Route path="/" element={<Home />} />
                     
+                    
                     {/* Property Listings */}
                     <Route path="/listings" element={<Listings />} />
                     <Route path="/property/:id" element={<PropertyDetails />} />
@@ -82,6 +83,7 @@ function App() {
                     {/* Other Pages */}
                     <Route path="/about" element={<About />} />
                     <Route path="/contact" element={<Contact />} />
+                    <Route path="/lagosareas" element={<NeighboorhoodsGuide />} />
                     
                     {/* Temporary pages */}
                     <Route path="/test" element={<Home />} /> {/* Redirect test to home for now */}
