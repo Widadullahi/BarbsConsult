@@ -94,10 +94,10 @@ const Header = () => {
         <div className="container-custom px-6 flex justify-between text-sm">
           <div className="flex gap-6">
             <a href="tel:+2341234567890">
-              <FaPhone className="inline mr-2" />+234 123 456 7890
+              <FaPhone className="inline mr-2" />+234 706 6063 908
             </a>
             <a href="mailto:info@barbs-consultant.com">
-              <FaEnvelope className="inline mr-2" />info@barbs-consultant.com
+              <FaEnvelope className="inline mr-2" />babajidepelumi124@gmail.com
             </a>
           </div>
 

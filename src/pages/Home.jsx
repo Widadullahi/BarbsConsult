@@ -428,7 +428,7 @@ const Home = () => {
             <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl">
               <FaEnvelope className="text-white text-2xl mb-4 mx-auto" />
               <h4 className="font-bold mb-2">Email Us</h4>
-              <p>info@barbs-consultant.com</p>
+              <p>babajidepelumi124@gmail.com</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl">
               <FaWhatsapp className="text-white text-2xl mb-4 mx-auto" />

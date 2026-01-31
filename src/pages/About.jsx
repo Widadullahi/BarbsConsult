@@ -71,13 +71,14 @@ const About = () => {
         <div className="max-w-4xl mx-auto text-center mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Story & Vision</h2>
           <p className="text-gray-600 text-lg mb-6">
-            Founded in 2009, Barbs Consult emerged with a simple vision: to make real estate investment 
-            accessible, transparent, and profitable for every Nigerian. What started as a small consultancy 
-            has grown into one of Lagos' most trusted real estate partners.
-          </p>
+            
+<span className="font-bold text-gray-900">Our company was founded with one clear vision:</span> To make property ownership and investment simple, secure, and rewarding for everyone.
+What started as a small idea has grown into a trusted real estate and property management brand, driven by integrity, transparency, and a commitment to excellent service. 
+</p>
           <p className="text-gray-600">
-            We believe in building lasting relationships through integrity, expertise, and personalized service. 
-            Every client's success is our success.
+           We believe that every client deserves not just a property, but peace of mind.
+Today, we help individuals and investors find quality homes, manage valuable assets, and build long-term wealth through smart real estate solutions.
+Our journey continues with one goal ; to create lasting value for our clients and the communities we serve.
           </p>
         </div>
 

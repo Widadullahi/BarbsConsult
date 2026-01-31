@@ -28,6 +28,7 @@ import AdminLayout from './admin/layouts/AdminLayout'
 import AdminDashboard from './admin/pages/Dashboard'
 import AdminProperties from './admin/pages/Properties'
 import AdminBlog from './admin/pages/Blog'
+import BlogNew from './admin/pages/BlogNew'
 import AdminUsers from './admin/pages/Users'
 import AdminMessages from './admin/pages/Messages'
 import AdminAnalytics from './admin/pages/Analytics'
@@ -115,6 +116,9 @@ function App() {
               <Route index element={<AdminDashboard />} />
               <Route path="properties" element={<AdminProperties />} />
               <Route path="blog" element={<AdminBlog />} />
+              <Route path="blog/new" element={<BlogNew />} />
+              <Route path="blog/:id/edit" element={<div className="p-8">Edit Blog Post (Coming Soon)</div>} />
+
               <Route path="users" element={<AdminUsers />} />
               <Route path="messages" element={<AdminMessages />} />
               <Route path="analytics" element={<AdminAnalytics />} />

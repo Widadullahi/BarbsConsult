@@ -99,17 +99,17 @@ const Footer = () => {
                   href="tel:+2341234567890"
                   className="hover:text-blue-500 transition"
                 >
-                  +234 123 456 7890
+                  +234 706 6063 908
                 </a>
               </div>
 
               <div className="flex items-center gap-3">
                 <FaEnvelope className="text-blue-500" />
                 <a
-                  href="mailto:info@barbs-consultant.com"
+                  href="mailto:babajidepelumi124@gmail.com"
                   className="hover:text-blue-500 transition"
                 >
-                  info@barbs-consultant.com
+                  babajidepelumi124@gmail.com
                 </a>
               </div>
             </div>

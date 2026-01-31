@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
-
+import ceo from '../images/ceo.jpeg'
 const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -11,8 +11,7 @@ const AdminLayout = () => {
     name: 'Admin User',
     email: 'admin@barbsconsult.com',
     role: 'Administrator',
-    avatar:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80',
+    avatar: ceo,
   };
 
   const notifications = [
