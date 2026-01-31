@@ -30,11 +30,11 @@ const Contact = () => {
     
     // Build the email body
     const body = `
-First Name: ${formData.firstName}
-Last Name: ${formData.lastName}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Service: ${formData.service}
+First Name: ${formData.firstName}<br><br>
+Last Name: ${formData.lastName}<br><br>
+Email: ${formData.email}<br><br>
+Phone: ${formData.phone}<br><br>
+Service: ${formData.service}<br><br>
 
 Message:
 ${formData.message}
